@@ -28,4 +28,12 @@ public class DepartmentController {
         return depRepo
                 .findAll();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DepartmentEntity> getById(@PathVariable Long id) {
+        return depRepo.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }
