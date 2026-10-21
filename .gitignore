@@ -1,0 +1,78 @@
+# =========================
+# Build results
+# =========================
+bin/
+obj/
+out/
+
+# =========================
+# User-specific files
+# =========================
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# =========================
+# VS Code
+# =========================
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# =========================
+# Rider / JetBrains
+# =========================
+.idea/
+*.sln.iml
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# OS generated files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# ASP.NET specific
+# =========================
+appsettings.Development.json
+appsettings.Local.json
+
+# =========================
+# Entity Framework
+# =========================
+Migrations/
+
+# =========================
+# Publish output
+# =========================
+publish/
+
+# =========================
+# NuGet
+# =========================
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# =========================
+# Test results
+# =========================
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# =========================
+# Docker
+# =========================
+docker-compose.override.yml
