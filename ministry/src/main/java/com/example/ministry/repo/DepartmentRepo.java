@@ -7,4 +7,5 @@ import com.example.ministry.entity.DepartmentEntity;
 @Repository
 public interface DepartmentRepo extends JpaRepository<DepartmentEntity, Long> {
 
+    boolean existsByNameIgnoreCase(String name);
 }
