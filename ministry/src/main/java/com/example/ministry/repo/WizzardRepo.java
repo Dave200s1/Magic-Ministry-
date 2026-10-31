@@ -7,5 +7,5 @@ import com.example.ministry.entity.WizzardEntity;
 
 @Repository
 public interface WizzardRepo extends JpaRepository<WizzardEntity, Long> {
-    boolean existsByNameIgnoreCase(String name);
+    boolean existsByFirstNameIgnoreCaseAndLastNameIgnoreCase(String firstName, String lastName);
 }

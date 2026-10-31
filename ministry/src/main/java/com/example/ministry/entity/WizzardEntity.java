@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,9 +13,12 @@ import lombok.Setter;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 
 import java.time.Instant;
 import java.time.LocalDate;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 
@@ -30,30 +34,38 @@ public class WizzardEntity {
     private Long id;
 
     @NotBlank
-    @Column(nullable = false, unique = true)
-    private String first_name;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
 
     @NotBlank
-    @Column(nullable = false, unique = true)
-    private String last_name;
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
 
     @NotNull
+    @Past
     @Column(name = "data_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
-    @NotBlank
-    @Column(nullable = false)
-    private String blood_status;
+    @Column(name = "blood_status")
+    private String bloodStatus;
 
-    @NotBlank
-    @Column(nullable = false)
-    private String hogwarts_house;
+    @Column(name = "hogwarts_house")
+    private String hogwartsHouse;
 
-    @NotEmpty
-    @Column(nullable = false)
-    private boolean animagus;
+    @Column(name = "animagus", nullable = false)
+    private boolean animagus = false;
 
-    @NotNull
-    @Column(name = "registered_at", nullable = false)
+    @CreationTimestamp
+    @Column(name = "registered_at", nullable = false, updatable = false)
     private Instant registeredAt;
+
+    @PrePersist
+    void applyDefaults() {
+        if (bloodStatus == null) {
+            bloodStatus = "UNKNOWN";
+        }
+        if (hogwartsHouse == null) {
+            hogwartsHouse = "UNKNOWN";
+        }
+    }
 }

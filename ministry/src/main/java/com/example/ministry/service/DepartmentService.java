@@ -1,8 +1,8 @@
 package com.example.ministry.service;
 
 import com.example.ministry.entity.DepartmentEntity;
-import com.example.ministry.error.DepartmentAlreadyExistsException;
-import com.example.ministry.error.DepartmentNotFoundException;
+import com.example.ministry.error.DuplicateResourceException;
+import com.example.ministry.error.ResourceNotFoundException;
 import com.example.ministry.repo.DepartmentRepo;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +10,6 @@ import java.util.List;
 
 @Service
 public class DepartmentService {
-    // Todo
-    // CRUD
 
     private final DepartmentRepo depRepo;
 
@@ -19,32 +17,26 @@ public class DepartmentService {
         this.depRepo = depRepo;
     }
 
-    // Post
     public DepartmentEntity create(DepartmentEntity department) {
         if (depRepo.existsByNameIgnoreCase(department.getName())) {
-            throw new DepartmentAlreadyExistsException(department.getName());
+            throw new DuplicateResourceException("Department", department.getName());
         }
         return depRepo.save(department);
     }
 
-    // Get
     public List<DepartmentEntity> findAll() {
         return depRepo.findAll();
     }
 
-    // Get
     public DepartmentEntity findById(Long id) {
         return depRepo.findById(id)
-                .orElseThrow(() -> new DepartmentNotFoundException(id));
+                .orElseThrow(() -> new ResourceNotFoundException("Department", id));
     }
 
-    // Delete
-    public DepartmentEntity delete(DepartmentEntity name) {
-        if (depRepo.existsById(name.getId())) {
-            throw new DepartmentNotFoundException(name.getId());
-        }
-        return depRepo.findById(id)
-                .orElseThrow(() -> new DepartmentNotFoundException(id));
-        depRepo.delete(name);
+    public DepartmentEntity delete(Long id) {
+        DepartmentEntity existing = depRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Department", id));
+        depRepo.delete(existing);
+        return existing;
     }
 }
