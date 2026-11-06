@@ -10,6 +10,7 @@ import com.example.ministry.repo.WizzardRepo;
 import com.example.ministry.service.WizzardService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/wizzard")
@@ -38,12 +39,19 @@ public class WizzardController {
 
     // Todo
     @DeleteMapping("/{id}")
-    public ResponseEntity<WizzardEntity> delete(@PathVariable Long id) {
-        return ResponseEntity.ok(wizzardService.delete(id));
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Long id) {
+        WizzardEntity deleted = wizzardService.delete(id);
+        return ResponseEntity.ok(Map.of(
+                "message", "Wizzard " + deleted.getFirstName() + " " + deleted.getLastName() + " was deleted from DB"));
+        // return ResponseEntity.ok(wizzardService.delete(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<WizzardEntity> update(@PathVariable Long id, @RequestBody WizzardEntity incoming) {
-        return ResponseEntity.ok(wizzardService.update(id, incoming));
+    public ResponseEntity<Map<String, String>> update(@PathVariable Long id, @RequestBody WizzardEntity incoming) {
+
+        WizzardEntity updated = wizzardService.update(id, incoming);
+        return ResponseEntity.ok(Map.of(
+                "message", "Wizard " + updated.getFirstName() + " " + updated.getLastName() + " was updated"));
+        // return ResponseEntity.ok(wizzardService.update(id, incoming));
     }
 }
