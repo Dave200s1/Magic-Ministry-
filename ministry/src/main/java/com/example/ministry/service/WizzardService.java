@@ -33,4 +33,24 @@ public class WizzardService {
         return wizzRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Wizzard", id));
     }
+
+    public WizzardEntity delete(Long id) {
+        WizzardEntity existing = wizzRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Wizard", id));
+        wizzRepo.delete(existing);
+        return existing;
+    }
+
+    public WizzardEntity update(Long id, WizzardEntity incoming) {
+        WizzardEntity existing = wizzRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Wizard", id));
+        existing.setFirstName(incoming.getFirstName());
+        existing.setLastName(incoming.getLastName());
+        existing.setDateOfBirth(incoming.getDateOfBirth());
+        existing.setBloodStatus(incoming.getBloodStatus());
+        existing.setHogwartsHouse(incoming.getHogwartsHouse());
+        existing.setAnimagus(incoming.isAnimagus());
+
+        return wizzRepo.save(existing);
+    }
 }

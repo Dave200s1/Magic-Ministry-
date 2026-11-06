@@ -35,4 +35,15 @@ public class WizzardController {
     public ResponseEntity<WizzardEntity> getById(@PathVariable Long id) {
         return ResponseEntity.ok(wizzardService.findByid(id));
     }
+
+    // Todo
+    @DeleteMapping("/{id}")
+    public ResponseEntity<WizzardEntity> delete(@PathVariable Long id) {
+        return ResponseEntity.ok(wizzardService.delete(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<WizzardEntity> update(@PathVariable Long id, @RequestBody WizzardEntity incoming) {
+        return ResponseEntity.ok(wizzardService.update(id, incoming));
+    }
 }
