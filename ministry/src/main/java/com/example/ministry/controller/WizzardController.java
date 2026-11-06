@@ -43,7 +43,7 @@ public class WizzardController {
         WizzardEntity deleted = wizzardService.delete(id);
         return ResponseEntity.ok(Map.of(
                 "message", "Wizzard " + deleted.getFirstName() + " " + deleted.getLastName() + " was deleted from DB"));
-        // return ResponseEntity.ok(wizzardService.delete(id));
+
     }
 
     @PutMapping("/{id}")
@@ -52,6 +52,6 @@ public class WizzardController {
         WizzardEntity updated = wizzardService.update(id, incoming);
         return ResponseEntity.ok(Map.of(
                 "message", "Wizard " + updated.getFirstName() + " " + updated.getLastName() + " was updated"));
-        // return ResponseEntity.ok(wizzardService.update(id, incoming));
+
     }
 }
